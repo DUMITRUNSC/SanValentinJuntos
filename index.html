@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>San Valentín 💘</title>
+  <link rel="stylesheet" href="styles.css" />
+  <meta name="description" content="Dos planes especiales: Mamma Mia y Cookies juntos." />
+</head>
+
+<body>
+  <main class="wrap">
+    <header class="hero">
+      <div class="pill">San Valentín</div>
+      <h1>Nuestros planes para hoy <span class="heart">💘</span></h1>
+      <p class="sub">Dos invitaciones. Dos momentos. Uno contigo.</p>
+    </header>
+
+    <section class="grid">
+      <!-- PLAN 1 -->
+      <article class="card">
+        <div class="media">
+          <img src="./planMm.png" alt="Plan 1: Mamma Mia" loading="lazy" />
+        </div>
+
+        <div class="content">
+          <h2>Plan 1: Mamma Mia 🎬</h2>
+          <p>
+            Noche de peli + algo rico.  
+            Se permiten canciones (y risas).
+          </p>
+
+          <div class="actions">
+            <a class="btn" href="./planMm.png" download>Descargar invitación (PNG)</a>
+            <a class="btn ghost" href="./planMm.png" target="_blank" rel="noopener">Ver</a>
+          </div>
+
+          <p class="hint">Tip: si lo abre en iPhone, puede guardarlo desde “Compartir”.</p>
+        </div>
+      </article>
+
+      <!-- PLAN 2 -->
+      <article class="card">
+        <div class="content">
+          <h2>Plan 2: Cookies juntos 🍪</h2>
+          <p>
+            Hacemos cookies gorditas y jugosas juntos.  
+            Sin prisas. Con amor.
+          </p>
+
+          <div class="actions">
+            <a class="btn" href="./CookisSanValentin.pdf" download>Descargar invitación (PDF)</a>
+            <a class="btn ghost" href="./CookisSanValentin.pdf" target="_blank" rel="noopener">Ver en pestaña</a>
+          </div>
+
+          <div class="pdfBox">
+            <div class="pdfTop">
+              <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+              <span class="pdfTitle">Vista previa del PDF</span>
+            </div>
+
+            <!-- Vista previa dentro de la página -->
+            <iframe
+              class="pdf"
+              src="./CookisSanValentin.pdf"
+              title="Invitación Cookies San Valentín"
+            ></iframe>
+          </div>
+
+          <p class="hint">
+            Si no aparece el PDF en local: ejecútalo con servidor (abajo te digo cómo).
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <footer class="footer">
+      <p>Hecho con amor, sin excusas. ❤️</p>
+    </footer>
+  </main>
+</body>
+</html>
