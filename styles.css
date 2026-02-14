@@ -1,11 +1,11 @@
 :root{
     --bg:#0b0613;
     --pink:#ff4d88;
-    --pink-soft:#ff7eb3;
-    --gold:#ffd166;
+    --pink2:#ff7eb3;
     --text:rgba(255,255,255,.92);
     --muted:rgba(255,255,255,.70);
     --border:rgba(255,255,255,.15);
+    --shadow:0 22px 80px rgba(0,0,0,.55);
   }
   
   *{box-sizing:border-box;}
@@ -13,43 +13,96 @@
   
   body{
     margin:0;
-    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto;
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
     color:var(--text);
     background:
       radial-gradient(900px 600px at 10% -10%, rgba(255,77,136,.45), transparent 60%),
-      radial-gradient(900px 600px at 90% 10%, rgba(255,209,102,.25), transparent 55%),
+      radial-gradient(900px 600px at 90% 10%, rgba(255,209,102,.20), transparent 55%),
       linear-gradient(180deg, #12081d 0%, #0b0613 100%);
     overflow-x:hidden;
   }
   
-  /* 💘 CORAZONES FLOTANTES SUTILES */
-  body::before{
+  /* ============ FONDO: 4 FOTOS REBOTANDO ============ */
+  .bg-bounce{
+    position:fixed;
+    inset:0;
+    z-index:-3;
+    overflow:hidden;
+    pointer-events:none;
+  }
+  
+  /* tamaño de cada “foto” rebotando (responsive) */
+  .bouncer{
+    position:absolute;
+    width:min(56vw, 620px);
+    height:min(56vh, 520px);
+    border-radius:22px;
+    background-size:cover;
+    background-position:center;
+    filter: saturate(1.05) contrast(1.05);
+    opacity:.40; /* sutil */
+    box-shadow: 0 30px 90px rgba(0,0,0,.55);
+    will-change: transform;
+  }
+  
+  /* cada una con imagen + duración diferente */
+  .b1{ background-image:url("./foto1.jpg"); animation: bounceA 26s linear infinite; opacity: .99;}
+  .b2{ background-image:url("./foto2.jpg"); animation: bounceB 31s linear infinite; opacity:.99; }
+  .b3{ background-image:url("./foto3.jpg"); animation: bounceC 28s linear infinite; opacity:.99; }
+  .b4{ background-image:url("./foto4.jpg"); animation: bounceD 34s linear infinite; opacity:.99; }
+  
+  /* Rebote “DVD style” (CSS approximation, hits edges) */
+  @keyframes bounceA{
+    0%   { transform: translate(0, 0); }
+    25%  { transform: translate(calc(100vw - min(56vw, 620px)), calc(100vh - min(56vh, 520px))); }
+    50%  { transform: translate(0, calc(100vh - min(56vh, 520px))); }
+    75%  { transform: translate(calc(100vw - min(56vw, 620px)), 0); }
+    100% { transform: translate(0, 0); }
+  }
+  @keyframes bounceB{
+    0%   { transform: translate(calc(100vw - min(56vw, 620px)), 0); }
+    25%  { transform: translate(0, calc(100vh - min(56vh, 520px))); }
+    50%  { transform: translate(calc(100vw - min(56vw, 620px)), calc(100vh - min(56vh, 520px))); }
+    75%  { transform: translate(0, 0); }
+    100% { transform: translate(calc(100vw - min(56vw, 620px)), 0); }
+  }
+  @keyframes bounceC{
+    0%   { transform: translate(0, calc(100vh - min(56vh, 520px))); }
+    25%  { transform: translate(calc(100vw - min(56vw, 620px)), 0); }
+    50%  { transform: translate(calc(100vw - min(56vw, 620px)), calc(100vh - min(56vh, 520px))); }
+    75%  { transform: translate(0, 0); }
+    100% { transform: translate(0, calc(100vh - min(56vh, 520px))); }
+  }
+  @keyframes bounceD{
+    0%   { transform: translate(calc(100vw - min(56vw, 620px)), calc(100vh - min(56vh, 520px))); }
+    25%  { transform: translate(0, 0); }
+    50%  { transform: translate(calc(100vw - min(56vw, 620px)), 0); }
+    75%  { transform: translate(0, calc(100vh - min(56vh, 520px))); }
+    100% { transform: translate(calc(100vw - min(56vw, 620px)), calc(100vh - min(56vh, 520px))); }
+  }
+  
+  /* overlay para que el texto siempre se lea perfecto */
+  body::after{
     content:"";
     position:fixed;
     inset:0;
+    z-index:-2;
     pointer-events:none;
-    background-image:
-      radial-gradient(circle at 20% 30%, rgba(255,255,255,.08) 6px, transparent 7px),
-      radial-gradient(circle at 70% 60%, rgba(255,255,255,.06) 4px, transparent 5px),
-      radial-gradient(circle at 40% 80%, rgba(255,255,255,.07) 5px, transparent 6px);
-    animation: floatHearts 20s linear infinite;
+    background:
+      radial-gradient(800px 480px at 50% 20%, rgba(255,77,136,.15), transparent 60%),
+      linear-gradient(to bottom, rgba(8,5,15,.78), rgba(8,5,15,.88));
   }
   
-  @keyframes floatHearts{
-    0%{ transform:translateY(0); }
-    100%{ transform:translateY(-200px); }
-  }
-  
-  /* Layout */
+  /* ============ CONTENIDO ============ */
   .wrap{
     max-width:1050px;
     margin:0 auto;
-    padding:30px 20px 50px;
+    padding:30px 20px 52px;
   }
   
   .hero{
     text-align:center;
-    padding:20px 10px;
+    padding:18px 10px 10px;
   }
   
   .pill{
@@ -65,20 +118,25 @@
   h1{
     font-size: clamp(30px, 4vw, 48px);
     margin:16px 0 10px;
+    line-height:1.05;
+  }
+  
+  .heart{
+    filter: drop-shadow(0 10px 24px rgba(255,77,136,.30));
   }
   
   .sub{
     color:var(--muted);
-    max-width:60ch;
+    max-width:62ch;
     margin:0 auto;
     line-height:1.6;
   }
   
   .grid{
-    margin-top:30px;
+    margin-top:26px;
     display:grid;
     grid-template-columns:1fr;
-    gap:22px;
+    gap:18px;
   }
   
   @media(min-width:900px){
@@ -89,85 +147,129 @@
     background:rgba(255,255,255,.06);
     border:1px solid var(--border);
     border-radius:20px;
-    backdrop-filter:blur(12px);
     overflow:hidden;
-    transition:.3s ease;
-    box-shadow:0 20px 60px rgba(0,0,0,.45);
+    backdrop-filter: blur(12px);
+    box-shadow: var(--shadow);
+    transition: transform .25s ease, box-shadow .25s ease;
   }
   
   .card:hover{
-    transform:translateY(-6px);
-    box-shadow:0 25px 80px rgba(255,77,136,.25);
+    transform: translateY(-6px);
+    box-shadow: 0 26px 90px rgba(255,77,136,.18);
   }
   
   .media{
     aspect-ratio:16/10;
+    background: rgba(0,0,0,.25);
   }
   
   .media img{
     width:100%;
     height:100%;
     object-fit:cover;
+    display:block;
   }
   
   .content{
     padding:18px;
   }
   
-  h2{
-    margin:0 0 10px;
-  }
+  h2{ margin:0 0 10px; }
   
   p{
     color:var(--muted);
     line-height:1.6;
-    margin-bottom:16px;
+    margin:0 0 14px;
   }
   
   .actions{
     display:flex;
     gap:10px;
     flex-wrap:wrap;
+    margin-bottom:10px;
   }
   
   .btn{
-    padding:10px 16px;
+    padding:10px 14px;
     border-radius:14px;
-    font-weight:600;
+    font-weight:700;
     text-decoration:none;
-    border:1px solid rgba(255,255,255,.2);
-    background:linear-gradient(135deg, var(--pink), var(--pink-soft));
-    color:white;
-    transition:.2s ease;
+    border:1px solid rgba(255,255,255,.20);
+    background: linear-gradient(135deg, var(--pink), var(--pink2));
+    color: white;
+    transition: transform .12s ease, opacity .12s ease, box-shadow .12s ease;
   }
   
   .btn:hover{
-    transform:translateY(-2px);
-    box-shadow:0 10px 30px rgba(255,77,136,.5);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 34px rgba(255,77,136,.35);
   }
   
   .btn.ghost{
-    background:transparent;
+    background: transparent;
     border:1px solid var(--border);
-    color:var(--text);
+    color: var(--text);
+    box-shadow:none;
+  }
+  
+  .hint{
+    font-size:12px;
+    color: rgba(255,255,255,.58);
+    margin-top:8px;
   }
   
   .pdfBox{
-    margin-top:16px;
+    margin-top:14px;
     border-radius:16px;
     overflow:hidden;
     border:1px solid var(--border);
+    background: rgba(0,0,0,.20);
+  }
+  
+  .pdfTop{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:10px 12px;
+    border-bottom:1px solid var(--border);
+    background: rgba(255,255,255,.04);
+  }
+  
+  .dot{
+    width:10px;
+    height:10px;
+    border-radius:999px;
+    background: rgba(255,255,255,.22);
+  }
+  
+  .pdfTitle{
+    margin-left:6px;
+    color: rgba(255,255,255,.72);
+    font-size:13px;
   }
   
   .pdf{
     width:100%;
     height:420px;
     border:0;
+    display:block;
   }
   
   .footer{
     text-align:center;
-    margin-top:30px;
-    color:rgba(255,255,255,.6);
+    margin-top:28px;
+    color: rgba(255,255,255,.60);
+    font-size:13px;
+  }
+  
+  /* Mobile tuning */
+  @media(max-width:600px){
+    .bouncer{
+      width: 84vw;
+      height: 44vh;
+      border-radius:18px;
+    }
+    .pdf{ height:320px; }
+    h1{ font-size:30px; }
   }
   
